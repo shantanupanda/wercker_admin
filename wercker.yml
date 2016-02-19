@@ -44,13 +44,13 @@ build:
       - script:
          name: Swagger/Admin UI Download
          code: |
-           Sversion=2.1.4
            rm -rf /opt/tomcat/webapps/ROOT/*
-           wget -O /opt/tomcat/webapps/ROOT/v${Sversion} https://codeload.github.com/swagger-api/swagger-ui/zip/v${Sversion}
            cd /opt/tomcat/webapps/ROOT/
-           mv v2.1.4 swagger-ui-${Sversion}.zip
+           Sversion=2.1.4
+           wget https://codeload.github.com/swagger-api/swagger-ui/zip/v${Sversion}
+           mv v${Sversion} swagger-ui-${Sversion}.zip
            unzip swagger-ui-${Sversion}.zip
-           mv swagger-ui-${Sversion}/dist/* .
+           mv /opt/tomcat/webapps/ROOT/swagger-ui-${Sversion}/dist/* .
            rm -rf index.html
            cp -r index.html /opt/tomcat/webapps/ROOT/
       - script:
