@@ -45,7 +45,7 @@ build:
          name: Swagger/Admin UI Download
          code: |
            Sversion=2.1.4
-           rm -rf $TOMCAT_BASE/webapps/ROOT/*
+           rm -rf /opt/tomcat/webapps/ROOT/*
            wget -O /opt/tomcat/webapps/ROOT/v${Sversion} https://codeload.github.com/swagger-api/swagger-ui/zip/v${Sversion}
            cd /opt/tomcat/webapps/ROOT/
            mv v2.1.4 swagger-ui-${Sversion}.zip
