@@ -27,7 +27,9 @@ build:
       - script:
          name: Deploy war file
          code: |
+           CONF_FILE=$CONF_FILE
            rm -rf /opt/tomcat/bin/catalina.sh
+           sed -i "s/CONF_FILE/$CONF_FILE/g" catalina.sh
            cp -r catalina.sh /opt/tomcat/bin/catalina.sh
            chmod 777 /opt/tomcat/bin/catalina.sh
       - script:
