@@ -246,7 +246,7 @@ umask $UMASK
 
 # Uncomment the following line to make the umask available when using the
 # org.apache.catalina.security.SecurityListener
-JAVA_OPTS="$JAVA_OPTS -Xmx512m -Dorg.apache.catalina.security.SecurityListener.UMASK=`umask` -Dconfig.resource=STAGE.conf "
+JAVA_OPTS="$JAVA_OPTS -Xmx512m -Dorg.apache.catalina.security.SecurityListener.UMASK=`umask` -Dconfig.resource=CONF_FILE"
 
 # ----- Execute The Requested Command -----------------------------------------
 
