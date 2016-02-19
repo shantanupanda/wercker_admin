@@ -45,13 +45,12 @@ build:
          name: Swagger/Admin UI Download
          code: |
            rm -rf /opt/tomcat/webapps/ROOT/*
-           cd /opt/tomcat/webapps/ROOT/
            Sversion=2.1.4
            wget https://codeload.github.com/swagger-api/swagger-ui/zip/v${Sversion}
-           mv v${Sversion} swagger-ui-${Sversion}.zip
-           unzip swagger-ui-${Sversion}.zip
-           mv /opt/tomcat/webapps/ROOT/swagger-ui-${Sversion}/dist/* .
-           rm -rf index.html
+           mv v${Sversion} /opt/tomcat/webapps/ROOT/swagger-ui-${Sversion}.zip
+           unzip /opt/tomcat/webapps/ROOT/swagger-ui-${Sversion}.zip
+           mv /opt/tomcat/webapps/ROOT/swagger-ui-${Sversion}/dist/* /opt/tomcat/webapps/ROOT/
+           rm -rf /opt/tomcat/webapps/ROOT/index.html
            cp -r index.html /opt/tomcat/webapps/ROOT/
       - script:
          name: Nginx Admin UI Configuration
