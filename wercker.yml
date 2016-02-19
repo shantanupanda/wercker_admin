@@ -33,11 +33,12 @@ build:
       - script:
          name: Deploy war file
          code: |
-           VERSION=$WAR_FILE_VERSION
+           BUCKET=$BUCKET
+           WARFILE=$WAR_FILE_PATH_VERSION
            export AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY
            export AWS_SECRET_ACCESS_KEY=$AWS_SECRET_KEY
            export AWS_DEFAULT_REGION=$AWS_REGION
-           aws s3 cp s3://packager-000-dev.avalonlabs.io/com/twiinlabs/accounts/${VERSION}/accounts-${VERSION}.war /opt/tomcat/webapps/
+           aws s3 cp s3://${BUCKET}/com/twiinlabs/${WARFILE} /opt/tomcat/webapps/
       - script:
          name: Swagger/Admin UI Download
          code: |
