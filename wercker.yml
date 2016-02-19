@@ -51,7 +51,7 @@ build:
            mv v2.1.4 swagger-ui-${Sversion}.zip
            unzip swagger-ui-${Sversion}.zip
            mv swagger-ui-${Sversion}/dist/* .
-           rm -rf /swagger/index.html
+           rm -rf index.html
            cp -r index.html /opt/tomcat/webapps/ROOT/
       - script:
          name: Nginx Admin UI Configuration
