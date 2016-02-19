@@ -88,6 +88,6 @@ deploy:
       region: $AWS_REGION
       cluster-name: $CLUSTER_NAME
       service-name: $SERVICE_NAME
-      task-definition-name: $TASK_DEFINATION
+      task-definition-name: $TASK_DEFINITION
       task-definition-file: /app/wercker-app.json
       minimum-running-tasks: 1
