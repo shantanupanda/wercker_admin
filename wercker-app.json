@@ -1,0 +1,17 @@
+
+[
+    {
+      "name": "CONTAINER_NAME",
+      "image": "IMAGE_NAME",
+      "essential": true,
+      "portMappings": [
+        {
+          "containerPort": 80,
+          "hostPort": PORT_NO
+        }
+      ],
+      "memory": 1024,
+      "cpu": 1,
+      "command" : ["/sbin/my_init"]
+    }
+]
