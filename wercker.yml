@@ -16,14 +16,18 @@ build:
       - script:
          name: wercker-app.json change
          code: |
-           CONTAINER_NAME=$CONTAINER_NAME
-           IMAGE_NAME=$REPOSITORY_NAME
+           CONTAINER_NAME=$CONTAINER_NAME_ADMIN_UI
+           IMAGE_NAME=$REPO_ADMIN_UI
            PORT_NO=$PORT_NO
            sed -i "s#IMAGE_NAME#$IMAGE_NAME#g" wercker-app.json
            sed -i "s/CONTAINER_NAME/$CONTAINER_NAME/g" wercker-app.json
            sed -i "s/PORT_NO/$PORT_NO/g" wercker-app.json
            cat wercker-app.json
-      
+      - script:
+         name: index.html change
+         code: |
+           VERSION=$WAR_FILE_VERSION
+           sed -i "s/VERSION/$VERSION/g" index.html
       - script:
          name: Deploy war file
          code: |
@@ -36,11 +40,11 @@ build:
          name: Deploy war file
          code: |
            BUCKET=$BUCKET
-           WARFILE=$WAR_FILE_PATH_VERSION
+           VERSION=$WAR_FILE_VERSION
            export AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY
            export AWS_SECRET_ACCESS_KEY=$AWS_SECRET_KEY
            export AWS_DEFAULT_REGION=$AWS_REGION
-           aws s3 cp s3://${BUCKET}/com/twiinlabs/${WARFILE} /opt/tomcat/webapps/
+           aws s3 cp s3://${BUCKET}/com/twiinlabs/admin/${VERSION}/admin-${VERSION}.war /opt/tomcat/webapps/
       - script:
          name: Swagger/Admin UI Download
          code: |
@@ -72,7 +76,7 @@ build:
           username: $USERNAME
           password: $PASSWORD
           tag: latest
-          repository: $REPOSITORY_NAME
+          repository: $REPO_ADMIN_UI
           registry: https://registry.avalonlabs.io
 deploy:
   box: python:2.7-slim
@@ -86,7 +90,7 @@ deploy:
       secret: $AWS_SECRET_KEY
       region: $AWS_REGION
       cluster-name: $CLUSTER_NAME
-      service-name: $SERVICE_NAME
-      task-definition-name: $TASK_DEFINITION
+      service-name: $SERVICE_NAME_ADMIN
+      task-definition-name: $TASK_DEFINITION_ADMIN
       task-definition-file: /app/wercker-app.json
       minimum-running-tasks: 1
