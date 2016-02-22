@@ -16,9 +16,9 @@ build:
       - script:
          name: wercker-app.json change
          code: |
-           CONTAINER_NAME=$CONTAINER_NAME_ACCOUNTS
-           IMAGE_NAME=$REPO_ACCOUNTS
-           PORT_NO=$PORT_NO_ACCOUNTS
+           CONTAINER_NAME=$CONTAINER_NAME_CONTENT
+           IMAGE_NAME=$REPO_CONTENT
+           PORT_NO=$PORT_NO_CONTENT
            sed -i "s#IMAGE_NAME#$IMAGE_NAME#g" wercker-app.json
            sed -i "s/CONTAINER_NAME/$CONTAINER_NAME/g" wercker-app.json
            sed -i "s/PORT_NO/$PORT_NO/g" wercker-app.json
@@ -40,7 +40,7 @@ build:
            export AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY
            export AWS_SECRET_ACCESS_KEY=$AWS_SECRET_KEY
            export AWS_DEFAULT_REGION=$AWS_REGION
-           aws s3 cp s3://${BUCKET}/com/twiinlabs/accounts/${VERSION}/accounts-${VERSION}.war /opt/tomcat/webapps/
+           aws s3 cp s3://${BUCKET}/com/twiinlabs/content/${VERSION}/content-${VERSION}.war /opt/tomcat/webapps/
       - script:
          name: Nginx Admin UI Configuration for Swagger
          code: |     
@@ -61,7 +61,7 @@ build:
           username: $USERNAME
           password: $PASSWORD
           tag: latest
-          repository: $REPO_ACCOUNTS
+          repository: $REPO_CONTENT
           registry: https://registry.avalonlabs.io
 deploy:
   box: python:2.7-slim
@@ -75,7 +75,7 @@ deploy:
       secret: $AWS_SECRET_KEY
       region: $AWS_REGION
       cluster-name: $CLUSTER_NAME
-      service-name: $SERVICE_NAME_ACCOUNTS
-      task-definition-name: $TASK_DEFINITION_ACCOUNTS
+      service-name: $SERVICE_NAME_CONTENT
+      task-definition-name: $TASK_DEFINITION_CONTENT
       task-definition-file: /app/wercker-app.json
       minimum-running-tasks: 1
