@@ -17,7 +17,7 @@ build:
          name: wercker-app.json change
          code: |
            CONTAINER_NAME=$CONTAINER_NAME_ACCOUNTS
-           IMAGE_NAME=$REGISTRY_NAME/twiin-app-staging-accounts-v-$WAR_FILE_VERSION
+           IMAGE_NAME=$REPO_ACCOUNTS
            PORT_NO=$PORT_NO_ACCOUNTS
            sed -i "s#IMAGE_NAME#$IMAGE_NAME#g" wercker-app.json
            sed -i "s/CONTAINER_NAME/$CONTAINER_NAME/g" wercker-app.json
@@ -61,7 +61,7 @@ build:
           username: $USERNAME
           password: $PASSWORD
           tag: latest
-          repository: $REGISTRY_NAME/twiin-app-staging-accounts-v-$WAR_FILE_VERSION
+          repository: $REPO_ACCOUNTS
           registry: https://registry.avalonlabs.io
 deploy:
   box: python:2.7-slim
