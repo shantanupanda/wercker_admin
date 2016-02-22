@@ -16,9 +16,9 @@ build:
       - script:
          name: wercker-app.json change
          code: |
-           CONTAINER_NAME=$CONTAINER_NAME
-           IMAGE_NAME=$REPOSITORY_NAME
-           PORT_NO=$PORT_NO
+           CONTAINER_NAME=$CONTAINER_NAME_ACCOUNTS
+           IMAGE_NAME=$REGISTRY_NAME/twiin-app-staging-accounts-v-$WAR_FILE_VERSION
+           PORT_NO=$PORT_NO_ACCOUNTS
            sed -i "s#IMAGE_NAME#$IMAGE_NAME#g" wercker-app.json
            sed -i "s/CONTAINER_NAME/$CONTAINER_NAME/g" wercker-app.json
            sed -i "s/PORT_NO/$PORT_NO/g" wercker-app.json
@@ -36,15 +36,15 @@ build:
          name: Deploy war file
          code: |
            BUCKET=$BUCKET
-           WARFILE=$WAR_FILE_PATH_VERSION
+           VERSION=$WAR_FILE_VERSION
            export AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY
            export AWS_SECRET_ACCESS_KEY=$AWS_SECRET_KEY
            export AWS_DEFAULT_REGION=$AWS_REGION
-           aws s3 cp s3://${BUCKET}/com/twiinlabs/${WARFILE} /opt/tomcat/webapps/
+           aws s3 cp s3://${BUCKET}/com/twiinlabs/accounts/${VERSION}/accounts-${VERSION}.war /opt/tomcat/webapps/
       - script:
          name: Nginx Admin UI Configuration for Swagger
          code: |     
-           PORT=$PORT_NO       
+           PORT=$PORT_NO_ACCOUNTS      
            sed -i "s/PORT_NO/$PORT/g" swagger
            cp -r swagger /etc/nginx/sites-available/swagger
            cd /etc/nginx/sites-enabled/ && ln -s ../sites-available/swagger
@@ -61,7 +61,7 @@ build:
           username: $USERNAME
           password: $PASSWORD
           tag: latest
-          repository: $REPOSITORY_NAME
+          repository: $REGISTRY_NAME/twiin-app-staging-accounts-v-$WAR_FILE_VERSION
           registry: https://registry.avalonlabs.io
 deploy:
   box: python:2.7-slim
@@ -75,7 +75,7 @@ deploy:
       secret: $AWS_SECRET_KEY
       region: $AWS_REGION
       cluster-name: $CLUSTER_NAME
-      service-name: $SERVICE_NAME
-      task-definition-name: $TASK_DEFINITION
+      service-name: $SERVICE_NAME_ACCOUNTS
+      task-definition-name: $TASK_DEFINITION_ACCOUNTS
       task-definition-file: /app/wercker-app.json
       minimum-running-tasks: 1
