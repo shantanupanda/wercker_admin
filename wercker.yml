@@ -63,6 +63,12 @@ build:
           tag: latest
           repository: $REPO_CONTENT
           registry: https://registry.avalonlabs.io
+    after-steps:
+            - slack-notifier:
+                url: $SLACK_URL
+                channel: twiin
+                username: werckerbot
+                notify_on: "passed"
 deploy:
   box: python:2.7-slim
   aws-ecs:
